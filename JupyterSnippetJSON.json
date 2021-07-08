@@ -1,0 +1,100 @@
+{
+    "name" : "My favorites",
+    "sub-menu" : [
+        {
+            "name" : "Autoreload",
+            "snippet" : ["%load_ext autoreload",
+                         "%autoreload 2"]
+        },
+        {
+            "name" : "Import Sat Tools",
+            "snippet" : ["import os, sys",
+                         "sys.path.append('../SatLib')",
+                         "import satPlotTools as spt",
+                         "import orbitalMechanics as om",
+                         "import scheduleFuncs as sch",
+                         "import constellationClasses as sl",
+                         "import comms as com" ]
+        },
+        {
+            "name" : "Standard Imports (Numpy, Poliastro, Astropy)",
+            "snippet" : ["import numpy as np",
+                         "from poliastro import constants",
+                         "from poliastro.earth import Orbit",
+                         "from poliastro.bodies import Earth",
+                         "from poliastro.maneuver import Maneuver",
+                         "from poliastro.twobody.propagation import propagate",
+                         "from poliastro.twobody.propagation import cowell",
+                         "from poliastro.core.perturbations import J2_perturbation",
+                         "from poliastro.core.propagation import func_twobody",
+
+                         "from poliastro.util import norm",
+                         "import astropy.units as u",
+                         "from astropy.time import Time, TimeDelta"]
+        },
+        {
+            "name" : "Import Poliastro Plotting",
+            "snippet" : ["import matplotlib.pyplot as plt",
+                         "from poliastro.plotting.static import StaticOrbitPlotter",
+                         "from poliastro.plotting import OrbitPlotter3D, OrbitPlotter2D",
+                         "%matplotlib notebook"]
+        },
+        {
+            "name" : "Import Poliastro GroundTracks",
+            "snippet" : ["from poliastro.earth import EarthSatellite",
+                         "from poliastro.earth.plotting import GroundtrackPlotter",
+                         "from poliastro.util import time_range"]
+        },
+        {
+            "name" : "Create Circular Orbit",
+            "snippet" : ["orb1 = Satellite.circular(Earth, alt = a * u.km,\n inc = i * u.deg, raan = Omega * u.deg, arglat = omega * u.deg)"]
+        },
+        {
+            "name" : "Propagate",
+            "snippet" : ["def f(t0, state, k):",
+                         "    du_kep = func_twobody(t0, state, k)",
+                         "    ax, ay, az = J2_perturbation(",
+                         "        t0, state, k, J2=Earth.J2.value, R=Earth.R.to(u.km).value)",
+                         "    du_ad = np.array([0, 0, 0, ax, ay, az])",
+                         "    return du_kep + du_ad",
+                         "\ntofs = TimeDelta(np.arange(0, 86400, 1)*u.s)",
+                         "\ncoords = propagate(",
+                         "        orb1,",
+                         "        tofs,",
+                         "        method=cowell,",
+                         "        f=f,",
+                         ")"    ]
+        },
+        {
+            "name" : "Seaborn Plot",
+            "snippet" : ["import seaborn as sns",
+                         "sns.set_context('talk')",
+                         "sns.set_style('whitegrid')" ,
+                         "#colors = sns.color_palette('tab10', len(XX))"   ]
+        }
+    ]
+}
+
+
+
+{
+    "name" : "Poliastro",
+    "sub-menu" : [
+        {
+            "name" : "Propagate",
+            "snippet" : ["def f(t0, state, k):",
+                         "\tdu_kep = func_twobody(t0, state, k)",
+                         "\tax, ay, az = J2_perturbation(",
+                         "\t\tt0, state, k, J2=Earth.J2.value, R=Earth.R.to(u.km).value)",
+                         "du_ad = np.array([0, 0, 0, ax, ay, az])",
+                         "return du_kep + du_ad",
+                         "\ntofs = TimeDelta(np.arange(0, 86400, 1)*u.s)",
+                         "\ncoords = propagate(",
+                         "\t\torb1,",
+                         "\t\ttofs,",
+                         "\t\tmethod=cowell,",
+                         "\t\tf=f,",
+                         ")"    ]
+        },
+    ]
+};
